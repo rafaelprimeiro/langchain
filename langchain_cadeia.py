@@ -13,7 +13,7 @@ set_debug(True)
 interesse = "praia"
 
 city_model = ChatPromptTemplate.from_template(
-    "Sugira uma cidade dado meu interesse por {interesse}."
+    "Sugira uma cidade dado meu interesse por {interesse}. A sua resposta dever ser **SOMENTE** o nome da cidade, sem explicações ou detalhes adicionais."
 )
 
 dinner_model = ChatPromptTemplate.from_template(
