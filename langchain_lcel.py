@@ -44,6 +44,9 @@ city_chain = city_model | llm | parser
 dinner_chain = dinner_model | llm | StrOutputParser()
 culture_chain = cuture_model | llm | StrOutputParser()
 
-chain = city_chain | dinner_chain | culture_chain
+chain = city_chain | {
+    "restaurantes": dinner_chain,
+    "locais_culturais": culture_chain
+}
 
 print(chain.invoke(interesse))
