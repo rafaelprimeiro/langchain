@@ -42,3 +42,5 @@ for role, message in messages:
     resp = conversation.invoke((role, message),
                                 config={"configurable": {"session_id": "user-123"}})
     print(resp)
+
+print("🛠️ - ", store["user-123"].messages)
