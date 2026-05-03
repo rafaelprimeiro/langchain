@@ -3,3 +3,9 @@ dotenv==0.9.9
 langchain==1.2.15
 langchain-openai==1.2.1
 langchain-classic==1.0.4
+langchain-community==0.4.1
+
+faiss-cpu==1.13.2
+# GPU NVIDIA e CUDA 12. Se esse for o caso, 
+# instale a versão correta do faiss-gpu.
+# faiss-gpu-cu12 veja -> https://pypi.org/search/?q=faiss-gpu

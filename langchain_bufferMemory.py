@@ -19,14 +19,12 @@ llm = ChatOpenAI(model="gpt-5.4-nano",
 
 
 messages = [
-    ("human", "Qual é a capital da França?"),
-    # ("ai", "A capital da França é Paris."),
-    ("human", "Qual é a capital da Alemanha?"),
-    # ("ai", "A capital da Alemanha é Berlim."),
-    ("human", "Quais são os paises da américa do sul?"),
-    # ("ai", "Os países da América do Sul são: Argentina, Bolívia, Brasil, Chile, Colômbia, Equador, Guiana, Paraguai, Peru, Suriname, Uruguai e Venezuela."),
-    ("human", "Quais paises não fazem fronteira com o Brasil?"),
-    # ("ai", "Os países que não fazem fronteira com o Brasil são: Chile, Equador, Guiana, Suriname e Uruguai.")
+        "Quero visitar um lugar no Brasil famoso por suas praias e cultura. Pode me recomendar?",
+        "Qual é o melhor período do ano para visitar em termos de clima?",
+        "Quais tipos de atividades ao ar livre estão disponíveis?",
+        "Alguma sugestão de acomodação eco-friendly por lá?",
+        "Cite outras 20 cidades com características semelhantes às que descrevemos até agora. Rankeie por mais interessante, incluindo no meio a que você já sugeriu.",
+        "Na primeira cidade que você sugeriu lá atrás, quero saber 5 restaurantes para visitar. Responda somente o nome da cidade e o nome dos restaurantes.",
 ]
 
 store = {}  # mantém histórico por session_id
@@ -38,8 +36,8 @@ def get_session_history(session_id: str) -> InMemoryChatMessageHistory:
 
 conversation = RunnableWithMessageHistory(llm, get_session_history)
 
-for role, message in messages:
-    resp = conversation.invoke((role, message),
+for message in messages:
+    resp = conversation.invoke(("human", message),
                                 config={"configurable": {"session_id": "user-123"}})
     print(resp)
 
