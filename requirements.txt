@@ -4,6 +4,7 @@ langchain==1.2.15
 langchain-openai==1.2.1
 langchain-classic==1.0.4
 langchain-community==0.4.1
+pypdf==6.10.2
 
 faiss-cpu==1.13.2
 # GPU NVIDIA e CUDA 12. Se esse for o caso, 
