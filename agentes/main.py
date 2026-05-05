@@ -10,7 +10,12 @@ load_dotenv()
 llm = ChatOpenAI(model="gpt-5.4-nano",
                  api_key=os.getenv("OPENAI_API_KEY"))
 
-question = "Quais são os dados da Ana e da Bianca?"
+question = "Quais os dados de Ana?"
+question = "Quais os dados de Bianca?"
+question = "Quais os dados de Ana e da Bianca?"
+question = "Crie um perfil acadêmico para a Ana!"
+question = "Compare o perfil acadêmico da Ana com o da Bianca!"
+question = "Tenho sentido Ana desanimada com cursos de matemática. Seria uma boa parear ela com a Marcos?"
 
 agent = AgentOpenAIFunctions(llm)
 
