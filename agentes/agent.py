@@ -1,4 +1,5 @@
-from langchain_classic.agents import Tool, create_openai_tools_agent
+from langchain.agents import create_agent
+from langchain_classic.agents import Tool, create_openai_tools_agent, create_react_agent
 from langchain_classic.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 
@@ -24,6 +25,10 @@ class AgentOpenAIFunctions:
 
         prompt = ChatPromptTemplate.from_messages([
             ("system", "Você é um assistente legal."),
-            ("user", "{input}\n\n{agent_scratchpad}")
+            ("user", "{input}\n\n{agent_scratchpad}\n\n{tool_names}")
         ])
-        self.agent = create_openai_tools_agent(llm, self.tools, prompt)
+        # self.agent = create_openai_tools_agent(llm, self.tools, prompt)
+        self.agent = create_agent(llm, 
+                                  self.tools, 
+                                  system_prompt="Você é um assistente legal.")
+

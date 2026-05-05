@@ -23,7 +23,7 @@ class StudentDataTools(BaseTool):
     apenas de buscar os dados do estudante a partir do nome.
 """
     def _run(self, input: str) -> str:
-        student = input.lower()
+        student = input.lower().strip()
         studant_data = self.find_student_data(student)
         return json.dumps(studant_data)
     
