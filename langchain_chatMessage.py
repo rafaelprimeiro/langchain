@@ -8,14 +8,20 @@ import os
 load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
-set_debug(True)
+# set_debug(True)
 
 llm = ChatOpenAI(model="gpt-5.4-nano", 
                  temperature=0.7, 
                  openai_api_key=api_key)
 
 
-messages = [
+prompt_sugestion = [
+    ("system", "Você é um assistente de viagens especializado em destinos no Brasil, oferecendo recomendações personalizadas com base nas preferências do usuário."),
+    ("placeholder", "{history}"),
+    ("human", "{query}"),
+]
+
+questions_list = [
         "Quero visitar um lugar no Brasil famoso por suas praias e cultura. Pode me recomendar?",
         "Qual é o melhor período do ano para visitar em termos de clima?",
         "Quais tipos de atividades ao ar livre estão disponíveis?",
@@ -31,11 +37,25 @@ def get_session_history(session_id: str) -> InMemoryChatMessageHistory:
         store[session_id] = InMemoryChatMessageHistory()
     return store[session_id]
 
-conversation = RunnableWithMessageHistory(llm, get_session_history)
+conversation = RunnableWithMessageHistory(
+    runnable=llm,
+    get_session_history=get_session_history,
+    input_message_key="query",
+    history_message_key="history",
+)
 
-for message in messages:
-    resp = conversation.invoke(("human", message),
-                                config={"configurable": {"session_id": "user-123"}})
-    print(resp)
+for message in questions_list:
+    resp = conversation.invoke(
+        {
+            "query": message
+        },
+        config={
+            "configurable": {
+                "session_id": "user-123"
+            }
+        }
+    )
+    print("💬 Usuário:", message)
+    print("🤖 Assistente:", resp)
 
 print("🛠️ - ", store["user-123"].messages)
